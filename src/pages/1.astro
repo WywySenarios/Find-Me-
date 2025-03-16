@@ -10,7 +10,7 @@ import Layout from "../components/Layout.astro";
 
         <div class="container">
             <p>Find the key to enter to the next level!</p>
-            <p>Hint: Read this aloud: "Kun-Troll Shif-de Aye"</p>
+            <p>Hint: Read this aloud: "Kun-Troll Shif-de Eye"</p>
             <input type="text" id="answer" placeholder="Enter your answer" />
             <p id="hint1" style="display: none; color: red;">Hint: It's a single-digit number.</p>
             <p id="hint2" style="display: none; color: rgb(251, 0, 255);">Hint 2! F12 -> Source on top -> src/pages at left -> 1.astro .</p>
@@ -21,14 +21,17 @@ import Layout from "../components/Layout.astro";
 <script>
 
     setTimeout(() => {
+        //@ts-ignore
       document.getElementById("hint1").style.display = "block";
     }, 10000);
 
     setTimeout(() => {
+        //@ts-ignore
         document.getElementById("hint2").style.display = "block";
     }, 20000);
 
     setTimeout(() => {
+        //@ts-ignore
         document.getElementById("hint3").style.display = "block";
     }, 30000);
 
@@ -38,8 +41,10 @@ import Layout from "../components/Layout.astro";
         .getElementById("answer")
         .addEventListener("keypress", function (event) {
             if (event.key === "Enter") {
+                //@ts-ignore
                 let userAnswer = document
                     .getElementById("answer")
+                    //@ts-ignore
                     .value.trim();
                 if (userAnswer === "8") {
                     
