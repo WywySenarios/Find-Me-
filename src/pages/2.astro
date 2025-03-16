@@ -1,0 +1,90 @@
+---
+export const prerender = false;
+---
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Game - Level 2</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <h1>Level 2: Find the Hidden Button!</h1>
+
+        <div class="container">
+            <p>Can you find the button?</p>
+            <p>It's somewhere on here.</p>
+            <p>Good luck!</p>
+            <p id="hint1" style="display: none; color: red;">
+                Hint: F12 -> Element!
+            </p>
+            <button id="wanderingButton" class="hiddenButton">Click me!</button>
+        </div>
+
+        <script>
+            setTimeout(() => {
+                document.getElementById("hint1").style.display = "block";
+            }, 20000);
+
+            function placeButton() {
+                let button = document.getElementById("wanderingButton");
+
+                let randomX = Math.random() * (window.innerWidth - 50); // Subtract width to avoid overflow
+                let randomY = Math.random() * (window.innerHeight - 50); // Subtract height to avoid overflow
+
+                button.style.left = randomX + "px";
+                button.style.top = randomY + "px";
+            }
+
+            window.onload = function () {
+                placeButton();
+            };
+
+            document
+                .getElementById("wanderingButton")
+                .addEventListener("click", async function () {
+                    await fetch("/2", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            "answer": null
+                        }),
+                    });
+                    window.location.href = "3";
+                });
+        </script>
+
+        <style>
+            h1 {
+                text-align: center;
+            }
+
+            .container {
+                text-align: center;
+                margin-top: 50px;
+            }
+
+            .hiddenButton {
+                position: absolute;
+                padding: 10px;
+                background-color: white;
+                color: white;
+                border: 2px solid transparent;
+                font-size: 14px;
+                cursor: pointer;
+                opacity: 0;
+            }
+
+            .hiddenButton:hover {
+                background-color: black;
+                color: white;
+                opacity: 1;
+            }
+        </style>
+    </body>
+</html>

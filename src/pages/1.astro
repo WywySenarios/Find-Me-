@@ -1,0 +1,82 @@
+---
+export const prerender = false;
+---
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Game</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <h1>Level 1: What's the key? </h1>
+
+        <div class="container">
+            <p>Find the key to enter to the next level!</p>
+            <p>Hint: Read this aloud: "Kun-Troll Shif-de Aye"</p>
+            <input type="text" id="answer" placeholder="Enter your answer" />
+            <p id="hint1" style="display: none; color: red;">Hint: It's a single-digit number.</p>
+            <p id="hint2" style="display: none; color: rgb(251, 0, 255);">Hint 2! F12 -> Source on top -> src/pages at left -> 1.astro .</p>
+            <p id="hint3" style="display: none; color: rgb(0, 34, 255);">Last Hint! Line 51!</p>
+        </div>
+
+        <script>
+
+            setTimeout(() => {
+              document.getElementById("hint1").style.display = "block";
+            }, 10000);
+
+            setTimeout(() => {
+                document.getElementById("hint2").style.display = "block";
+            }, 20000);
+
+            setTimeout(() => {
+                document.getElementById("hint3").style.display = "block";
+            }, 30000);
+
+
+            //@ts-ignore
+            document
+                .getElementById("answer")
+                .addEventListener("keypress", function (event) {
+                    if (event.key === "Enter") {
+                        let userAnswer = document
+                            .getElementById("answer")
+                            .value.trim();
+                        if (userAnswer === "8") {
+                            
+                            let currentTime = new Date();
+                            let expires = new Date();
+                            expires.setTime(expires.getTime() + 15 * 60 * 1000); // Add 15 minutes
+
+                            document.cookie = `answer1=8; expires=${expires.toUTCString()}; path=/`;
+                            window.location.href = "2";
+                        } else {
+                            alert("Wrong answer! Try again.");
+                        }
+                    }
+                });
+        </script>
+
+        <style>
+            h1 {
+                text-align: center;
+            }
+
+            .container {
+                text-align: center;
+                margin-top: 50px;
+            }
+
+            input {
+                display: block;
+                margin: 10px auto;
+                padding: 10px;
+                font-size: 16px;
+                text-align: center;
+            }
+        </style>
+    </body>
+</html>

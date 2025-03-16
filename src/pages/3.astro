@@ -1,0 +1,93 @@
+---
+export const prerender = false;
+---
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Game - Level 3</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <h1>Level 3: Catch the Dancing Button!</h1>
+
+        <div class="container">
+            <p>Can you catch the button? It's running away!</p>
+            <button id="dancingButton" class="dancingButton" tabindex="-1"
+                >Catch me!</button
+            >
+        </div>
+
+        <script>
+            // Function to make the button move randomly around the screen
+            function moveButton() {
+                let button = document.getElementById("dancingButton");
+
+                // Randomize position (within window bounds)
+                let randomX = Math.random() * (window.innerWidth - 100); // Button width consideration
+                let randomY = Math.random() * (window.innerHeight - 100); // Button height consideration
+
+                // Set random position for the button
+                button.style.left = randomX + "px";
+                button.style.top = randomY + "px";
+
+                // Add funny dancing animation (button will 'bounce' slightly)
+                button.style.transition = "all 0.2s ease-in-out";
+            }
+
+            // Make the button dance every time it's clicked
+            document
+                .getElementById("dancingButton")
+                .addEventListener("click", async function () {
+                    await fetch("/3", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            "answer": null
+                        }),
+                    });
+                    alert("Caught me! Now let's go to the next level!");
+                    window.location.href = "4"; // Move to the next level
+                });
+
+            // Randomize button position every 0.5 seconds
+            setInterval(moveButton, 500);
+        </script>
+
+        <style>
+            h1 {
+                text-align: center;
+            }
+
+            .container {
+                text-align: center;
+                margin-top: 50px;
+            }
+
+            /* Styling for the dancing button */
+            .dancingButton {
+                position: absolute;
+                padding: 20px;
+                background-color: #ff5733;
+                /* A bright color for fun */
+                color: white;
+                border: none;
+                font-size: 16px;
+                cursor: pointer;
+                font-family: "Comic Sans MS", cursive, sans-serif;
+                border-radius: 10px;
+                transition: all 0.3s ease-in-out;
+            }
+
+            /* Button will move and bounce slightly when clicked */
+            .dancingButton:active {
+                transform: scale(1.1);
+            }
+        </style>
+    </body>
+</html>
