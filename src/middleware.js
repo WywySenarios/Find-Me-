@@ -2,14 +2,15 @@ const answers = {
     1: 8,
     2: NaN,
     3: NaN,
-    4: NaN
+    4: NaN,
 };
 
 const cookieAnswers = {
     1: 8,
     2: "O8bF2sF9vDhM5Sdisjgz1z3KBuQOAVJnIfgGydOCXoTHeBJrgXuIgcPhInaZlBBXwHKjWUMYIwjEcJqO0L5rUBkDBLP445Ckyl3k",
     3: "g9ywP5Xs6Mu6m6LI2Hingjuy7PLCRyXfFYrcpdsdc0p3HTRmh4ICE5NJp0PgOyiJVrj4QOudtVSAuHaDVu9OfCKhSrheEA0VIMXK",
-    4: "IjkGhyNDWVQGVUaEqpfaZ6QqGPqhiUvo44JUT29hFdllJRIDDSAVihuDDPRy3XYq1dDnqT2cLuCdT5fGv4RfzO4o3RwKaP6d9nmE"
+    4: "IjkGhyNDWVQGVUaEqpfaZ6QqGPqhiUvo44JUT29hFdllJRIDDSAVihuDDPRy3XYq1dDnqT2cLuCdT5fGv4RfzO4o3RwKaP6d9nmE",
+    // "win": "IjkGhyNDWVQGVUaEqpfaZ6QqGPqhiUvo44JUT29hFdllJRIDDSAVihuDDPRy3XYq1dDnqT2cLuCdT5fGv4RfzO4o3RwKaP6d9nmE",
 }
 
 export function onRequest(context, next) {
@@ -21,7 +22,29 @@ export function onRequest(context, next) {
     // console.log(request);
 
     // Ban all direct requests to the levels and win themselves
-    if (method === "GET" && /\/(?!1$)\d+$/.test(url)) {
+    if (method === "GET" && /win/.test(url)) {
+        // look for the cookie that tells us that the player has won. Otherwise, THEY ARE CHEATING.
+        // if (cookies && cookies["answer3"] == cookieAnswers["win"]) {
+        //     return next();
+        // }
+        for (let i in cookies) {
+            // if (cookies[i].trim().startsWith(`answer${previousURL}=`)) {
+                // console.log(cookies[i])
+                // console.log(`answer${previousURL}=`);
+                // console.log("Current cookie answer:", cookies[i].substring((`answer${previousURL}=`).length));
+                // console.log("Expected answer:", cookieAnswers[previousURL])
+            // }
+
+            // hard-coded! sorry :)
+            if (cookies[i].trim().startsWith(`answer3=`) && cookies[i].trim().substring((`answer3=`).length) == cookieAnswers[3]) {
+                return next();
+            }
+        }
+
+        // console.log("someone's cheating...");
+        return new Response("STOP CHEATING.", { status: 403 });
+        // return next();
+    } else if (method === "GET" && (/\/(?!1$)\d+$/.test(url))) {
         let matches = url.match(/\/(?!1$)\d+$/);
 
         if (matches.length != 1) {
@@ -55,6 +78,7 @@ export function onRequest(context, next) {
 
         // console.log("someone's cheating...")
         return new Response("STOP CHEATING.", { status: 403 });
+        // return next();
     }
 
     // For POST requests, check if it's targeting level 2 or 3
@@ -79,7 +103,7 @@ export function onRequest(context, next) {
             });
 
             res.headers.append('Set-Cookie', `answer${currentLevelNumber}=${cookieAnswers[currentLevelNumber]}; ` +
-                `Max-Age=${60 * 1}; ` + // cookies last for 1min
+                `Max-Age=${60 * 60}; ` + // cookies last for 1min
                 `Path=${"/"}; ` +
                 `SameSite=Strict;`);
 

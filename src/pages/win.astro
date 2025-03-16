@@ -1,0 +1,112 @@
+---
+export const prerender = false;
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Congratulations!</title>
+</head>
+
+<body>
+  <div>
+    <h1>🎉 Congratulations! 🎉</h1>
+    <p>You've completed all the levels! You're a true champion!</p>
+    <button onclick="window.location.href = 1;">Play Again</button>
+
+  </div>
+
+  <div id="confetti-container"></div>
+
+  <script>
+    function createConfetti() {
+      const confettiContainer = document.getElementById('confetti-container');
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = `${Math.random() * 100}vw`;
+        confetti.style.animationDelay = `${Math.random() * 5}s`;
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        confettiContainer.appendChild(confetti);
+      }
+    }
+
+
+    createConfetti();
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #1a1a1a;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin: 0;
+      animation: bounce 2s infinite;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin: 20px 0;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff3b2f;
+    }
+
+    @keyframes bounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 15px;  /* Increased size */
+      height: 15px; /* Increased size */
+      background-color: #ffdd57;
+      animation: confetti-fall 5s linear infinite;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+      }
+
+      100% {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+  </style>
+
+</body>
+
+</html>
