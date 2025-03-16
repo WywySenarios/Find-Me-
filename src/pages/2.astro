@@ -39,6 +39,7 @@ export const prerender = false;
 
 <script>
     setTimeout(() => {
+        //@ts-ignore
         document.getElementById("hint1").style.display = "block";
     }, 20000);
 
@@ -48,7 +49,9 @@ export const prerender = false;
         let randomX = Math.random() * (window.innerWidth - 50); // Subtract width to avoid overflow
         let randomY = Math.random() * (window.innerHeight - 50); // Subtract height to avoid overflow
 
+        //@ts-ignore
         button.style.left = randomX + "px";
+        //@ts-ignore
         button.style.top = randomY + "px";
     }
 
@@ -56,6 +59,7 @@ export const prerender = false;
         placeButton();
     };
 
+    //@ts-ignore
     document
         .getElementById("wanderingButton")
         .addEventListener("click", async function () {

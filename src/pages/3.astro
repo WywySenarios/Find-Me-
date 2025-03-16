@@ -57,14 +57,18 @@ export const prerender = false;
         let randomY = Math.random() * (window.innerHeight - 100); // Button height consideration
 
         // Set random position for the button
+        //@ts-ignore
         button.style.left = randomX + "px";
+        //@ts-ignore
         button.style.top = randomY + "px";
 
         // Add funny dancing animation (button will 'bounce' slightly)
+        //@ts-ignore
         button.style.transition = "all 0.2s ease-in-out";
     }
 
     // Make the button dance every time it's clicked
+    //@ts-ignore
     document
         .getElementById("dancingButton")
         .addEventListener("click", async function () {
