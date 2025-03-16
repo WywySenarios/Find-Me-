@@ -103,7 +103,7 @@ export function onRequest(context, next) {
             });
 
             res.headers.append('Set-Cookie', `answer${currentLevelNumber}=${cookieAnswers[currentLevelNumber]}; ` +
-                `Max-Age=${60 * 60}; ` + // cookies last for 1min
+                `Max-Age=${60 * 1}; ` + // cookies last for 1min
                 `Path=${"/"}; ` +
                 `SameSite=Strict;`);
 
