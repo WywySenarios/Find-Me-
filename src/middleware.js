@@ -24,9 +24,6 @@ export function onRequest(context, next) {
     // Ban all direct requests to the levels and win themselves
     if (method === "GET" && /win/.test(url)) {
         // look for the cookie that tells us that the player has won. Otherwise, THEY ARE CHEATING.
-        // if (cookies && cookies["answer3"] == cookieAnswers["win"]) {
-        //     return next();
-        // }
         for (let i in cookies) {
             // if (cookies[i].trim().startsWith(`answer${previousURL}=`)) {
                 // console.log(cookies[i])
