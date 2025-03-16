@@ -4,7 +4,9 @@ export const prerender = false;
 ---
 
 <Layout>
-    <h1>Level 3: Catch the Dancing Button!</h1>
+
+    <link href="rainbow.css" rel="stylesheet">
+    <h1 class="rainbow-text">Level 3: Catch the Dancing Button!</h1>
 
     <div class="container">
         <p>Can you catch the button? It's running away!</p>
@@ -66,6 +68,8 @@ export const prerender = false;
     document
         .getElementById("dancingButton")
         .addEventListener("click", async function () {
+            alert("Caught me! Now let's go to the next level!");
+
             await fetch("/3", {
                 method: "POST",
                 headers: {
@@ -75,8 +79,8 @@ export const prerender = false;
                     answer: null,
                 }),
             });
-            alert("Caught me! Now let's go to the next level!");
-            window.location.href = "4"; // Move to the next level
+
+            window.location.href = "win"; // Move to the next level
         });
 
     // Randomize button position every 0.5 seconds
