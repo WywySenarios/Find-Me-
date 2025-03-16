@@ -1,8 +1,5 @@
 In this game, all you need to do is to find the anwser and pass each level.
 
-
-
-
 Here is a description of each levels
 
 Level 0 - Let's get this started!
